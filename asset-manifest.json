@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/parental-aid/static/css/main.14fec36e.css",
+    "main.js": "/parental-aid/static/js/main.b2e1962a.js",
+    "static/js/787.729cc8d0.chunk.js": "/parental-aid/static/js/787.729cc8d0.chunk.js",
+    "static/media/Mulish-VariableFont_wght.ttf": "/parental-aid/static/media/Mulish-VariableFont_wght.d8a9a18cece4ed88ac76.ttf",
+    "static/media/DMSans-Regular.ttf": "/parental-aid/static/media/DMSans-Regular.4ee96395e07a04577aab.ttf",
+    "static/media/DMSans-Medium.ttf": "/parental-aid/static/media/DMSans-Medium.150680530af9dd9fd00b.ttf",
+    "index.html": "/parental-aid/index.html",
+    "main.14fec36e.css.map": "/parental-aid/static/css/main.14fec36e.css.map",
+    "main.b2e1962a.js.map": "/parental-aid/static/js/main.b2e1962a.js.map",
+    "787.729cc8d0.chunk.js.map": "/parental-aid/static/js/787.729cc8d0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.14fec36e.css",
+    "static/js/main.b2e1962a.js"
+  ]
+}
