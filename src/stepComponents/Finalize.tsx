@@ -1,7 +1,6 @@
 import { Button, Card, CardMedia, Stack, Typography } from '@mui/material'
 import React, { useContext } from 'react'
 import { WizardContext } from '../store'
-import { StepContainer } from '../styles'
 
 
 const Finalize = () => {

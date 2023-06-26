@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { WizardContext, answers } from '../store'
-import { Button, ButtonGroup, Stack, Typography } from '@mui/material'
-import { colors } from '../styles'
+import { Stack, Typography } from '@mui/material'
 import { globz } from '../globalize'
 import OptionsAndInput from '../OptionsAndInput'
 

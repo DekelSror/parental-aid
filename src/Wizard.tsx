@@ -30,9 +30,6 @@ const Wizard = ({onSubmit, onExit}: {onSubmit: (stt: WizardState) => void, onExi
     const [currentStep, setCurrentStep] = useState<AppStep>(AppStep.context)
     const user = useContext(userContext)
     
-    const confirmationText = useRef<string>('')
-    const [confirmationOpen, setConfirmationOpen] = useState<AppStep>()
-    const [waitingForEngine, setWaitingForEngine] = useState(false)
 
     // should be part of some store...
     const [videoId, setVideoId] = useState<string>()
@@ -68,6 +65,9 @@ const Wizard = ({onSubmit, onExit}: {onSubmit: (stt: WizardState) => void, onExi
         setVideoId(videoId) // save somehow for future use
 
         progressInterval.current = setInterval(async() => {
+            if (videoId) {
+                
+            }
             const statusOrUrl = await backend.videoProgress(videoId!)
 
             if (statusOrUrl.startsWith('http')) {

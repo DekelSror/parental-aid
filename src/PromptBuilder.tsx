@@ -1,6 +1,6 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { WizardContext, stateDict } from './store'
-import { Button, ButtonGroup, Card, CardActions, CardContent, FormControl, IconButton, Input, InputLabel, Stack, Typography } from '@mui/material'
+import { Button, ButtonGroup, FormControl, IconButton, Input, InputLabel, Stack, Typography } from '@mui/material'
 import { RemoveCircleOutline } from '@mui/icons-material'
 
 
@@ -9,12 +9,12 @@ type PromptTerm = {
     value: string
 }
 
-const writePropmt = (seq: PromptTerm[], w2d: {[k: string]: string}) => {
-    return seq.reduce((prompt, term) => {
-        if (term.termType === 'free text') return prompt + ' ' + term.value
-        return prompt + ' ' + w2d[term.value]
-    }, '')
-}
+// const writePropmt = (seq: PromptTerm[], w2d: {[k: string]: string}) => {
+//     return seq.reduce((prompt, term) => {
+//         if (term.termType === 'free text') return prompt + ' ' + term.value
+//         return prompt + ' ' + w2d[term.value]
+//     }, '')
+// }
 
 const PromptBuilder = () => {
     const wizardState = useContext(WizardContext)

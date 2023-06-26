@@ -20,7 +20,7 @@ const OptionsAndInput = ({options, multiple, withInput, onChange, itemComponent,
     useEffect(() => {
         const val = selected.concat(written)
         onChange(multiple ? val : val[0])
-    }, [selected, written])
+    }, [selected, written, multiple, onChange])
 
     return <Stack>
         <ButtonGroup style={{display: 'flex', flexDirection: 'row', gap: 10, flex: 4, padding: 2}} >

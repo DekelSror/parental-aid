@@ -1,13 +1,12 @@
-import { AppBar, Box, Button, CssBaseline, Stack, ThemeProvider, Toolbar, Typography, styled } from '@mui/material'
+import { AppBar, Box, Button, CssBaseline, Stack, ThemeProvider, Toolbar, Typography } from '@mui/material'
 import React, { createContext, useState } from 'react'
 import { AppContainer, StepContainer, theme, colors, AddButton, SelectInput } from './styles'
 import Wizard from './Wizard'
-import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 
 export type User = {
     email: string
     role: 'editor' | 'user' | 'guest'
-    creds?: CredentialResponse
+    // creds?: CredentialResponse
 }
 
 export const userContext = createContext<User>({email: 'guest@cactus.br', role: 'guest'})
