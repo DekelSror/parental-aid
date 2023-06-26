@@ -8,12 +8,6 @@ const EditScript = ({onChange}: {onChange: (script: string) => void}) => {
     const {prompt, script} = useContext(WizardContext)
     const backend = useBackend()
     const user = useContext(userContext)
-    const [edited, setEdited] = useState(script)
-
-    const handleChange = (text: string) => {
-        setEdited(text)
-        onChange(text)
-    }
 
     return <Stack>
         <Stack flex={2} direction='row' gap={2} >
@@ -23,7 +17,7 @@ const EditScript = ({onChange}: {onChange: (script: string) => void}) => {
             </Stack>
             <Stack sx={{flex: 1}} gap={1}>
                 <Typography variant='h4' > Script </Typography>
-                <TextField multiline value={edited} contentEditable onChange={e => handleChange(e.target.value)} />
+                <TextField multiline value={script} contentEditable onChange={e => onChange(e.target.value)} />
             </Stack>
         </Stack>
         {user.role === 'editor' && <Button onClick={() => backend.savePrompt(prompt, user.email)} > save prompt </Button>}

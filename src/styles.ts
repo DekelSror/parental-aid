@@ -1,4 +1,7 @@
-import { createTheme, Button, Stack, Box, Typography, styled, Slider, Switch, responsiveFontSizes, Input, InputLabel, OutlinedInput, MenuItem, Dialog, ButtonGroup } from "@mui/material"
+import { createTheme, Button, Stack, Typography, styled, 
+    Slider, Switch, responsiveFontSizes, Input, InputLabel, 
+    OutlinedInput, MenuItem, Dialog 
+} from "@mui/material"
 
 export const colors = {
     babyBlue: '#b7ebf0',
@@ -9,7 +12,7 @@ export const colors = {
     tan: '#F19336',
     peach: '#FE6E63',
     grey: '#8D8D8D',
-    orange: '#F19336',
+    orange: '#F19336dd',
     yellow: '#FFD426',
     darkGrey: '#373737',
     green: '#4BA651',

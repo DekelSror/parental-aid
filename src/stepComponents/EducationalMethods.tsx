@@ -14,13 +14,7 @@ const methodsData: {[k:string]: string} = {
 }
 
 const EducationalMethods = ({onSubmit}: {onSubmit: (methods: string[]) => void}) => {
-    const [methods, setMethods] = useState<string[]>([])
     const {expanded, setExpanded} = useContext(expandedContext)
-
-
-    useEffect(() => {
-        onSubmit(methods)
-    }, [methods])
 
     return <Stack>
         <Button onClick={() => setExpanded(expanded === 'methods' ? undefined : 'methods')}>
@@ -31,7 +25,7 @@ const EducationalMethods = ({onSubmit}: {onSubmit: (methods: string[]) => void})
                 options={answers.educationalMethods}
                 multiple
                 withInput={false}
-                onChange={items => setMethods(items as string[])}
+                onChange={items => onSubmit(items as string[])}
                 itemComponent={item => <Tooltip title={methodsData[item]}>
                     <Typography> {item} </Typography>    
                 </Tooltip>}

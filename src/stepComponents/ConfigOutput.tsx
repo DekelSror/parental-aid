@@ -1,19 +1,14 @@
 import { Button, Collapse, Stack, Typography } from '@mui/material'
-import React, { useContext, useEffect, useState } from 'react'
-import { DSlider, colors } from '../styles'
-import { answers } from '../store'
+import React, { useContext } from 'react'
+import { DSlider } from '../styles'
+import { WizardContext, answers } from '../store'
 import OptionsAndInput from '../OptionsAndInput'
 import { expandedContext } from '../Wizard'
 
 const ConfigOutput = ({onChange}: {onChange: (config: {videoLength: number, deliveryStyle: 'educational' | 'counsel' | 'story'}) => void}) => {
-    const [videoLength, setVideoLength] = useState(30)
-    const [deliveryStyle, setDeliveryStyle] = useState<'educational' | 'counsel' | 'story'>('educational')
+    const {outputConfig} = useContext(WizardContext)
     const {expanded, setExpanded} = useContext(expandedContext)
-
-    useEffect(() => {
-        onChange({videoLength: videoLength, deliveryStyle: deliveryStyle})
-    }, [videoLength, deliveryStyle])
-
+    
     return <Stack>
         <Button onClick={() => setExpanded(expanded === 'config output' ? undefined : 'config output')} >
             configure output
@@ -23,14 +18,14 @@ const ConfigOutput = ({onChange}: {onChange: (config: {videoLength: number, deli
                 <Stack flex={1} gap={1}>
                     <Typography> select video length </Typography>
                     <DSlider
-                        value={videoLength}
+                        value={outputConfig.videoLength}
                         min={30}
                         max={120}
                         step={30}
                         valueLabelDisplay='auto'
                         valueLabelFormat={(val, i) => val + ' seconds'}
                         marks={[{value: 30},{value: 60},{value: 90},{value: 120}]}
-                        onChange={(e, val) => setVideoLength(val as number)}
+                        onChange={(e, val) => onChange({videoLength: val as number, deliveryStyle: outputConfig.deliveryStyle})}
                     />
                 </Stack>
 
@@ -39,7 +34,10 @@ const ConfigOutput = ({onChange}: {onChange: (config: {videoLength: number, deli
                     <OptionsAndInput 
                         options={answers.deliveryStyle}
                         withInput={false}
-                        onChange={items => setDeliveryStyle(items as string as 'educational' | 'counsel' | 'story')}
+                        onChange={items => onChange({
+                            videoLength: outputConfig.videoLength, 
+                            deliveryStyle: items as string as 'educational' | 'counsel' | 'story'
+                        })}
                     />
                 </Stack>
             </Stack>

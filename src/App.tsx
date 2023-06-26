@@ -2,22 +2,24 @@ import { AppBar, Box, Button, CssBaseline, Stack, ThemeProvider, Toolbar, Typogr
 import React, { createContext, useState } from 'react'
 import { AppContainer, StepContainer, theme, colors, AddButton, SelectInput } from './styles'
 import Wizard from './Wizard'
-
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 
 export type User = {
     email: string
     role: 'editor' | 'user' | 'guest'
+    creds?: CredentialResponse
 }
 
 export const userContext = createContext<User>({email: 'guest@cactus.br', role: 'guest'})
 
 const superUsers: User[] = [
+    {email: 'guest@cactus.br', role: 'guest'},
     {email: 'srordekel@gmail.com', role: 'editor'},
+    {email: 'abe@maisautonomia.com.br', role: 'editor'}
 ]
 
-
 const App = () => {
-    const [user, setUser] = useState<User>(superUsers[0])
+    const [user, setUser] = useState<User>({email: 'guest@cactus.br', role: 'guest'})
     const [where, setWhere] = useState('home')
 
     return <ThemeProvider theme={theme}>
@@ -37,9 +39,13 @@ const App = () => {
         {where === 'home' && <StepContainer gap={3} >
             <Typography variant='h4' textAlign='center' > WELCOME blah blah blah </Typography>
             <form style={{display: 'flex', gap: '1.2rem', justifyContent: 'center'}} onSubmit={e => {
-                if (superUsers.map(u => u.email).includes(user.email)) {
+                const u = superUsers.find(su => su.email === user.email)
+
+                if (u) {
+                    setUser({...user, role: u.role})
                     setWhere('wizard')
                 }
+
             }}>
                 <SelectInput 
                     placeholder='enter your e-mail to start creating immediately'
@@ -52,7 +58,12 @@ const App = () => {
                 />
                 <AddButton type='submit' > Start now! </AddButton>
             </form>
+            {/* <GoogleLogin 
+                onSuccess={creds => setUser({...user, creds: creds})}
+                onError={alert}
+            /> */}
         </StepContainer>}
+
 
         {where === 'wizard' && <userContext.Provider value={user}>
             <Wizard onSubmit={stt => {}} onExit={() => setWhere('home')} />

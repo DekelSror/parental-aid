@@ -25,6 +25,7 @@ const PromptBuilder = () => {
     const [freetext, setFreetext] = useState('')
 
     return <>
+        <Typography> Prompt Builder </Typography>
         <div 
             style={{minHeight: 50, border: '1px solid black', display: 'flex', flexWrap: 'wrap', flexGrow: 1, flexShrink: 100}} 
             onDrop={e => {
@@ -35,7 +36,8 @@ const PromptBuilder = () => {
             onDragEnter={e => e.preventDefault()}
             onDragOver={e => e.preventDefault()}
         >
-            {seq.map((term, i) => {
+            {seq.length === 0 && <Typography> add written parts or drag answers here to create your prompt </Typography>}
+            {seq.length > 0 && seq.map((term, i) => {
                 return <Stack key={term.value} alignItems='center' flexDirection='row' p={1} gap={1} justifyContent='space-around'>
                     <Typography> {term.termType === 'key' ? w2d[term.value] : term.value} </Typography>
                     <IconButton 

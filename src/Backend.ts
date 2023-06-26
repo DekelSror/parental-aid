@@ -1,7 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
 import { WizardState } from "./store";
-import { useContext } from "react";
-import { userContext } from "./App";
 
 type ChatStreamEntry = {
     choices: {
@@ -78,20 +76,22 @@ class IndexedDBAccessor implements DbAccessor {
 }
 
 class Backend {
-    openaiKey = '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'
-    dIdKey = 'YWljYWN0dXNncm91cEBnbWFpbC5jb20:fhFKka4Ow33S4B11AJXZd'
+    openaiKey = process.env.REACT_APP_OPENAI_KEY
+    dIdKey = process.env.REACT_APP_DID_KEY
 
     promptsDB: DbAccessor
     client = new OpenAIApi(new Configuration({apiKey: this.openaiKey}))
 
+    
     dIdHeaders: HeadersInit = {
         accept: 'application/json',
         Authorization: 'Basic ' + this.dIdKey
     }
-
-
+    
+    
     constructor(db: DbAccessor) {
         this.promptsDB = db
+        console.log('backend', this.openaiKey, this.dIdKey)
     }
 
     generateVideo = async(state: WizardState) => {
@@ -136,7 +136,7 @@ class Backend {
         const target = e.currentTarget as XMLHttpRequest
     
         const deltasRaw = target.responseText.split('\n\n')
-    
+
         const deltas = deltasRaw.filter(d => d !== '' && d !== 'data: [DONE]')
             .map(d => d.trim().split('data: ')[1])
             .map<ChatStreamEntry>(d => JSON.parse(d))

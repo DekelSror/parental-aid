@@ -8,18 +8,13 @@ import { expandedContext } from '../Wizard'
 
 
 const ContextQuestions = ({onSubmit}: {onSubmit: (ctx: FamilyContext) => void}) => {
-    const {context: appContext} = useContext(WizardContext)
-    const [context, setContext] = useState<FamilyContext>(appContext)
+    const {context} = useContext(WizardContext)
     const {expanded, setExpanded} = useContext(expandedContext)
 
     const [siblingAge, setSiblingAge] = useState(0)
     const [childAtSchool, setChildAtSchool] = useState(Boolean(context.gradeAtSchool))
     // const smallScreen = useMediaQuery('@media (max-width:600px)')
 
-    const handleChange = (ctx: FamilyContext) => {
-        setContext(ctx)
-        onSubmit(ctx)
-    }
 
     return <Stack gap={3} p={2} >
         <Stack direction='row'>
@@ -31,7 +26,7 @@ const ContextQuestions = ({onSubmit}: {onSubmit: (ctx: FamilyContext) => void}) 
                 step={1}
                 valueLabelDisplay='auto'
                 value={context.targetChildAge}
-                onChange={(e, val) => handleChange({...context, targetChildAge: (val as number)})}
+                onChange={(e, val) => onSubmit({...context, targetChildAge: (val as number)})}
             />
         </Stack>
 
@@ -41,7 +36,7 @@ const ContextQuestions = ({onSubmit}: {onSubmit: (ctx: FamilyContext) => void}) 
                 options={answers.favoriteActivities}
                 multiple
                 withInput
-                onChange={favs => handleChange({...context, favoriteActivities: favs as string[]})}
+                onChange={favs => onSubmit({...context, favoriteActivities: favs as string[]})}
                 addLabel='add favorite activity'
             />
         </Stack>
@@ -65,7 +60,7 @@ const ContextQuestions = ({onSubmit}: {onSubmit: (ctx: FamilyContext) => void}) 
                     style={{alignSelf: 'center'}}
                     variant='outlined'
                     onClick={() => {
-                        handleChange({...context, siblings: [...context.siblings, siblingAge]})
+                        onSubmit({...context, siblings: [...context.siblings, siblingAge]})
                         setSiblingAge(0)
                     }} 
                 > 
@@ -76,7 +71,7 @@ const ContextQuestions = ({onSubmit}: {onSubmit: (ctx: FamilyContext) => void}) 
             <Stack direction='row' justifyContent='space-around' alignItems='start' marginBottom={4}>
                     <Typography variant='subtitle1' > {globz('context.siblingsLivingTogether')} </Typography>
                     <form>
-                        <DSwitch value={context.liveTogether} onChange={(e, val) => handleChange({...context, liveTogether: val})} />
+                        <DSwitch value={context.liveTogether} onChange={(e, val) => onSubmit({...context, liveTogether: val})} />
                     </form>
             </Stack>
 
@@ -92,7 +87,7 @@ const ContextQuestions = ({onSubmit}: {onSubmit: (ctx: FamilyContext) => void}) 
                         step={1}
                         valueLabelDisplay='auto'
                         value={context.gradeAtSchool || 1}
-                        onChange={(e, val) => handleChange({...context, gradeAtSchool: val as number})}
+                        onChange={(e, val) => onSubmit({...context, gradeAtSchool: val as number})}
                         disabled={!childAtSchool}
                     />
                 </Stack>
