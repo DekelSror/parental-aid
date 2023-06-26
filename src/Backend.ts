@@ -22,24 +22,21 @@ class IndexedDBAccessor implements DbAccessor {
     db?: IDBDatabase
     
     constructor() {
-        console.log('db ctor')
         const dbReq = indexedDB.open('parental-aid', 1)
 
         dbReq.onsuccess = () => {
-            console.log('db open success')
             this.db = dbReq.result 
         }
         
         dbReq.onupgradeneeded = () => {
             if (!this.db) return
-            console.log('db upgrade')
 
             const promptsStore = this.db.createObjectStore('prompts', {autoIncrement: true, keyPath: 'prompt'})
             promptsStore.createIndex('email', 'email', {unique: false})
         }
 
         dbReq.onerror = e => {
-            console.log('error opening db', dbReq.error?.message)
+            // console.log('error opening db', dbReq.error?.message)
         }
     }
 
@@ -62,7 +59,6 @@ class IndexedDBAccessor implements DbAccessor {
 
     savePrompt = (prompt: string, email: string) => {
         if (!this.db) {
-            console.log('no db!')
             return
         }
 
@@ -80,7 +76,9 @@ class Backend {
     dIdKey = process.env.REACT_APP_DID_KEY
 
     promptsDB: DbAccessor
-    client = new OpenAIApi(new Configuration({apiKey: this.openaiKey}))
+    client = new OpenAIApi(new Configuration({
+        apiKey: this.openaiKey
+    }))
 
     
     dIdHeaders: HeadersInit = {
@@ -173,7 +171,7 @@ class Backend {
             if (response.status === 200) {
                 return response.data.choices[0].message?.content
             } else {
-                console.log('get completion status is', response.status, response.statusText)
+                // console.log('get completion status is', response.status, response.statusText)
             }
         } catch (error) {
             
@@ -188,18 +186,15 @@ class Backend {
             'please only include in the object the activities that you rule out'
         
         const response = await this.getCompletion(prompt)
-        console.log('context verf res', response)
 
         if (response) {
             try {
                 return JSON.parse(response) as {[k: string]: string}
             } catch (error) {
-                console.log(error)
-                console.log(response)
                 return undefined
             }
         } else {
-            console.log('BE did not receive response for propmt ' + prompt)
+            // console.log('BE did not receive response for propmt ' + prompt)
         }
     }
 

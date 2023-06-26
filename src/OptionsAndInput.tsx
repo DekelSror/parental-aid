@@ -59,7 +59,7 @@ const OptionsAndInput = ({options, multiple, withInput, onChange, itemComponent,
                     onChange={e => {
                         const val = e.target.value as string[]
 
-                        console.log(e.target.value)
+                        // console.log(e.target.value)
 
                         if (!multiple) {
                             setWritten([val[0]])
