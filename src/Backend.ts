@@ -91,7 +91,6 @@ class Backend {
     
     constructor(db: DbAccessor) {
         this.promptsDB = db
-        console.log('backend', this.openaiKey, this.dIdKey)
     }
 
     generateVideo = async(state: WizardState) => {

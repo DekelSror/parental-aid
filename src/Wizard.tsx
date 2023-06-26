@@ -65,7 +65,7 @@ const Wizard = ({onSubmit, onExit}: {onSubmit: (stt: WizardState) => void, onExi
 
     const generateVideo = async() => {
         const videoId = await backend.generateVideo(state)
-        setVideoId(videoId)
+        setVideoId(videoId) // save somehow for future use
 
         progressInterval.current = setInterval(async() => {
             const statusOrUrl = await backend.videoProgress(videoId!)
